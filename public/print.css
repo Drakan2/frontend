@@ -1,0 +1,246 @@
+@media print {
+  /* SUPPRIMER about:blank de l'en-tête */
+  @page {
+    margin: 15mm;
+
+    /* Ces 3 lignes suppriment l'en-tête */
+    @top-left {
+      content: "";
+    }
+    @top-center {
+      content: "";
+    }
+    @top-right {
+      content: "";
+    }
+
+    /* Pied de page avec date et pagination */
+    @bottom-left {
+      content: "Imprimé le " var(--print-date);
+      font-size: 10px;
+      color: #666;
+    }
+
+    @bottom-right {
+      content: "Page " counter(page) " / " counter(pages);
+      font-size: 10px;
+      color: #666;
+    }
+    /* Styles pour les listes ordonnées et non ordonnées */
+    ol,
+    ul {
+      margin: 0.5rem 0;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin: 0.25rem 0;
+      line-height: 1.4;
+    }
+
+    /* S'assurer que les numéros de liste s'affichent */
+    ol {
+      list-style-type: decimal;
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    /* Styles spécifiques pour le contenu généré par Tiptap */
+    .prose ol {
+      list-style-type: decimal !important;
+    }
+
+    .prose ul {
+      list-style-type: disc !important;
+    }
+
+    .prose li {
+      display: list-item !important;
+      list-style-position: outside !important;
+    }
+
+    /* Forcer l'affichage des numéros même si le CSS est reset */
+    * {
+      list-style-type: inherit !important;
+    }
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    color: #000;
+    line-height: 1.4;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+  }
+
+  .patient-info {
+    margin-bottom: 30px;
+  }
+
+  .section {
+    margin-bottom: 25px;
+    page-break-inside: avoid;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+
+  .info-row {
+    display: flex;
+    margin-bottom: 8px;
+  }
+
+  .info-label {
+    font-weight: bold;
+    width: 220px;
+    text-transform: uppercase;
+    white-space: normal !important; /* S'assurer que les labels restent sur une ligne */
+  }
+
+  .info-value {
+    flex: 1;
+    white-space: normal !important; /* Les valeurs simples restent sur une ligne */
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  /* Styles pour le dossier médical */
+  .dossier-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+  }
+
+  .category {
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .subcategory {
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: 15px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  .record {
+    margin-left: 30px;
+    margin-bottom: 5px;
+  }
+
+  /* RESPECT DES SAUTS DE LIGNE UNIQUEMENT pour le contenu texte long */
+  .record-details,
+  .antecedent-content,
+  .medical-content {
+    white-space: pre-wrap !important;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  /* Supprimer le footer CSS qui cause des problèmes */
+  .footer {
+    display: none;
+  }
+
+  /* Styles pour les antécédents - RESPECT DES SAUTS DE LIGNE */
+  .antecedent-header {
+    font-weight: bold;
+    text-decoration: underline;
+    text-transform: uppercase;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1.1em;
+  }
+
+  .antecedent-content {
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    white-space: pre-wrap !important; /* RESPECT DES SAUTS DE LIGNE */
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  .antecedent-separator {
+    text-align: center;
+    margin: 1.5rem 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    padding-top: 0.5rem;
+  }
+}
+
+/* Styles pour les antécédents (hors print) */
+.antecedent-header {
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin: 1rem 0 0.5rem 0;
+  font-size: 1.1em;
+}
+
+.antecedent-content {
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.antecedent-separator {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  padding-top: 0.5rem;
+}
+
+.record-details {
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  line-height: 1.5;
+}
+
+/* Assurez-vous que tous les contenus de dossier médical respectent les sauts */
+.record {
+  white-space: normal !important; /* Le conteneur reste normal */
+}
+
+.record .record-details {
+  white-space: pre-wrap !important; /* Mais le détail a les sauts de ligne */
+}
+/* Styles pour l'affichage normal (hors impression) */
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose li {
+  display: list-item;
+  list-style-position: outside;
+}
